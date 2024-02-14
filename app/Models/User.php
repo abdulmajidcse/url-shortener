@@ -43,4 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // get all short urls by this user
+    public function shortUrls()
+    {
+        return $this->hasMany(ShortUrl::class);
+    }
 }

@@ -20,4 +20,10 @@ class ShortUrl extends Model
         'short_url_path',
         'click_count',
     ];
+
+    // get user information who's created this url
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
