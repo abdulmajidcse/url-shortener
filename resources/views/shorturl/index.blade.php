@@ -67,11 +67,29 @@
                                     </th>
 
                                     <th class="px-6 py-4 text-sm font-medium dark:text-white">
-                                        {{ $shortUrl->main_url }}
+                                        <div class="flex gap-2">
+                                            <div>
+                                                {{ $shortUrl->main_url }}
+                                            </div>
+
+                                            <div onClick="copyToClipboard(`{{ $shortUrl->main_url }}`)"
+                                                title="Click to copy">
+                                                <x-copy-icon />
+                                            </div>
+                                        </div>
                                     </th>
 
                                     <th class="px-6 py-4 text-sm font-medium dark:text-white">
-                                        {{ route('shorturls.redirect', $shortUrl->short_url_path) }}
+                                        <div class="flex gap-2">
+                                            <div>
+                                                {{ route('shorturls.redirect', $shortUrl->short_url_path) }}
+                                            </div>
+
+                                            <div onClick="copyToClipboard(`{{ route('shorturls.redirect', $shortUrl->short_url_path) }}`)"
+                                                title="Click to copy">
+                                                <x-copy-icon />
+                                            </div>
+                                        </div>
                                     </th>
 
                                     <th class="px-6 py-4 text-sm font-medium dark:text-white">
@@ -116,4 +134,19 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            function copyToClipboard(url) {
+                let copyUrl = document.createElement('textarea');
+                copyUrl.value = url;
+                document.body.appendChild(copyUrl);
+                copyUrl.select();
+                document.execCommand('copy');
+                document.body.removeChild(copyUrl);
+
+                alert('The URL copied to clipboard: ' + url);
+            }
+        </script>
+    @endpush
 </x-app-layout>
