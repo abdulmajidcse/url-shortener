@@ -37,13 +37,18 @@ class ShortUrlController extends Controller
 
         $validateData['user_id'] = auth()->id();
 
-        // getting unique short path
-        while (true) {
-            $shortUrlPath = Str::random(random_int(3, 10));
-            if (!ShortUrl::where('short_url_path', $shortUrlPath)->first()) {
-                $validateData['short_url_path'] = $shortUrlPath;
-                break;
+        // Any long iteration, when it'll get any error
+        try {
+            // getting unique short path
+            while (true) {
+                $shortUrlPath = Str::random(random_int(3, 10));
+                if (!ShortUrl::where('short_url_path', $shortUrlPath)->first()) {
+                    $validateData['short_url_path'] = $shortUrlPath;
+                    break;
+                }
             }
+        } catch (\Throwable $th) {
+            return back()->withInput()->with('error_message', 'Something is wrong. Please, try again later!');
         }
 
         ShortUrl::create($validateData);

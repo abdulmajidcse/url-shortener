@@ -68,7 +68,7 @@
 
                                     <th class="px-6 py-4 text-sm font-medium dark:text-white">
                                         <div class="flex gap-2">
-                                            <div>
+                                            <div class="max-w-[300px] overflow-x-auto">
                                                 {{ $shortUrl->main_url }}
                                             </div>
 
